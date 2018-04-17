@@ -3,7 +3,7 @@
 //2 buttons
 package servlets;
 
-import constructors.Location;
+import models.Location;
 import dao.LocationDAO;
 import java.io.IOException;
 import java.io.PrintWriter;

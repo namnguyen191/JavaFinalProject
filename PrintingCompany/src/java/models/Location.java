@@ -1,7 +1,7 @@
 /*
 
  */
-package constructors;
+package models;
 
 public class Location {
     protected int id;
