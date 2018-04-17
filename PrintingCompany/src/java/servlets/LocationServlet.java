@@ -1,10 +1,10 @@
 //UI:
 //webpage has lists of all locations
 //2 buttons
-package servlets;
+package Servlets;
 
 import models.Location;
-import dao.LocationDAO;
+import DAO.LocationDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import static java.lang.System.out;
@@ -21,6 +21,7 @@ public class LocationServlet extends HttpServlet {
 
     private LocationDAO locDAO; //instance variable called locDAO
  
+    @Override
     public void init() {
         //store these into string
         String jdbcURL = getServletContext().getInitParameter("jdbcURL");
@@ -41,7 +42,7 @@ public class LocationServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String action = request.getServletPath();
-        try {
+        try{
             switch (action) {
             case "/new":
                 showNewForm(request, response);
@@ -63,10 +64,11 @@ public class LocationServlet extends HttpServlet {
                 //method accepts request and response therefore method must throw ioexception and servletexception
                 listLocation(request, response);
                 break;
-            }
-        } catch (SQLException ex) {
-            throw new ServletException(ex);
         }
+        }catch(SQLException e){
+            throw new ServletException(e);
+        }
+        
 
     }
     
