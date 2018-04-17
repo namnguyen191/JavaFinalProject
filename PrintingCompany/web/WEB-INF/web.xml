@@ -28,7 +28,7 @@
     
     <servlet-mapping>
         <servlet-name>LocationServlet</servlet-name>
-        <url-pattern>/LocationServlet</url-pattern>
+        <url-pattern>/</url-pattern>
     </servlet-mapping>
     
     <error-page>

@@ -1,5 +1,5 @@
 
-package dao;
+package daos;
 
 import models.Location;
 import java.sql.Connection;

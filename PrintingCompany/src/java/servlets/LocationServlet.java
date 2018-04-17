@@ -4,7 +4,7 @@
 package servlets;
 
 import models.Location;
-import dao.LocationDAO;
+import daos.LocationDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import static java.lang.System.out;
