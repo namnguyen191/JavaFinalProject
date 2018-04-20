@@ -13,6 +13,11 @@
     </head>
     <body>
         <center>
+            <h2>
+            <a href="add">Add New Agent</a>
+            &nbsp;&nbsp;&nbsp;
+            <a href="list">List All Agents</a>
+            </h2>
             <h1>Agent List</h1>
                 <table cellpadding="5" border="1">
                     <thead>
@@ -21,8 +26,6 @@
                         <th>Last Name</th>
                         <th>Phone</th>
                         <th>Email</th>
-                        <th>Username</th>
-                        <th>Password</th>
                     </thead>
                     <tbody>
                         <c:forEach var="agentObj" items="${agentList}">
@@ -31,9 +34,7 @@
                                 <td><c:out value="${agentObj.getfName()}"/></td>
                                 <td><c:out value="${agentObj.getlName()}"/></td>
                                 <td><c:out value="${agentObj.getPhone()}"/></td>
-                                <td><c:out value="${userObj.getEmail()}"/></td>
-                                <td><c:out value="${agentObj.getUsername}"/></td>
-                                <td><c:out value="${agentObj.getPassword}"/></td>
+                                <td><c:out value="${agentObj.getEmail()}"/></td>
                                 <td>
                                     <a href="edit?id=<c:out value='${agentObj.getId()}'/>">Edit</a>
                                     &nbsp;&nbsp;&nbsp;

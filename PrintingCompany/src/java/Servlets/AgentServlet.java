@@ -4,6 +4,8 @@ import DAO.AgentDAO;
 import Models.Agent;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.List;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -77,24 +79,45 @@ public class AgentServlet extends HttpServlet {
         doGet(request, response);
     }
 
-    private void showAddForm(HttpServletRequest request, HttpServletResponse response) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    private void showAddForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        RequestDispatcher dispatcher = request.getRequestDispatcher("AddAgentForm.jsp");
+        dispatcher.forward(request, response);
     }
 
-    private void updateAgent(HttpServletRequest request, HttpServletResponse response) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    private void updateAgent(HttpServletRequest request, HttpServletResponse response) throws IOException, SQLException {
+        int id = Integer.parseInt(request.getParameter("id"));
+        String fname = request.getParameter("fname");
+        String lname = request.getParameter("lname");
+        String email = request.getParameter("email");
+        String phone = request.getParameter("phone");
+ 
+        Agent agent = new Agent(id, fname, lname, phone, email);
+        agentDao.updateAgent(agent);
+        response.sendRedirect("list");
     }
 
-    private void showUpdateForm(HttpServletRequest request, HttpServletResponse response) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    private void showUpdateForm(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
+        int id = Integer.parseInt(request.getParameter("id"));
+        Agent agent = agentDao.readAgent(id);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("UpdateAgentForm.jsp");
+        request.setAttribute("agent", agent);
+        dispatcher.forward(request, response);
     }
 
-    private void deleteAgent(HttpServletRequest request, HttpServletResponse response) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    private void deleteAgent(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException {
+        int id = Integer.parseInt(request.getParameter("id"));
+ 
+        Agent agent = new Agent(id);
+        agentDao.deleteAgent(agent);
+        response.sendRedirect("list");
+        
     }
 
-    private void viewAgents(HttpServletRequest request, HttpServletResponse response) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    private void viewAgents(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException, ServletException {
+        List<Agent> agentList = agentDao.readAgents(); //list all locations method of dao class
+        request.setAttribute("agentList", agentList);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("AgentIndex.jsp");
+        dispatcher.forward(request, response);
     }
 
     private void insertAgent(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException {
@@ -102,16 +125,14 @@ public class AgentServlet extends HttpServlet {
         String lName = request.getParameter("lname");
         String phone = request.getParameter("phone");
         String email = request.getParameter("email");
-        String username = request.getParameter("username");
-        String password = request.getParameter("password");
         
-        Agent userObj = new Agent(fName, lName, phone, email, username, password);
+        Agent userObj = new Agent(fName, lName, phone, email);
         boolean insertedAgent = agentDao.insertAgent(userObj);
         if(insertedAgent){
             response.sendRedirect("list");
         }
         else{
-            
+              
         }
         
     }

@@ -19,12 +19,22 @@
                     <tr>
                         <th>Agent First Name</th>
                         <td>
-                            <input type="text" name="fname" id="fname" value="${agentObj.getfName()}">
+                            <input type="text" name="fname" id="fname">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Agent Last Name</th>
+                        <td>
+                            <input type="text" name="lname" id="lname">
                         </td>
                     </tr>
                     <tr>
                         <th>Email</th>
-                        <td><input type="email" name="email" id="email" value="${userObj.email}"></td>
+                        <td><input type="email" name="email" id="email"></td>
+                    </tr>
+                    <tr>
+                        <th>Phone</th>
+                        <td><input type="phone" name="phone" id="phone"></td>
                     </tr>
                     <tr>
                         <td colspan="2"><input type="submit" name="submit" value="Save"></td>

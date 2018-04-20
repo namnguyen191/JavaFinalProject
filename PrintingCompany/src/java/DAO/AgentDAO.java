@@ -43,7 +43,7 @@ public class AgentDAO {
     }
     
     public boolean insertAgent(Agent agentObj) throws SQLException{
-        String sql = "INSERT INTO marketingagent (firstName,lastName, phoneNo, email, userName, password) VALUES (?,?,?,?,?,?)";
+        String sql = "INSERT INTO marketingagent (firstName,lastName, phoneNo, email) VALUES (?,?,?,?)";
         connect();
         boolean rowsInserted;
         try (PreparedStatement stmt = jdbcConnection.prepareStatement(sql)) {
@@ -51,8 +51,6 @@ public class AgentDAO {
             stmt.setString(2,agentObj.getlName());
             stmt.setString(3,agentObj.getPhone());
             stmt.setString(4, agentObj.getEmail());
-            stmt.setString(5,agentObj.getUsername());
-            stmt.setString(6,agentObj.getPassword());
             rowsInserted = stmt.executeUpdate()>0;
         }
         disconnect();
@@ -61,7 +59,7 @@ public class AgentDAO {
     
     public boolean updateAgent(Agent agentObj) throws SQLException{
         String sql = "UPDATE marketingagent SET firstName = ?, lastName = ?,"
-                + " phoneNo = ?, email = ?, userName = ?, password = ? WHERE id = ?";
+                + " phoneNo = ?, email = ? WHERE id = ?";
         connect();
         boolean rowsUpdated;
         try (PreparedStatement stmt = jdbcConnection.prepareStatement(sql)) {
@@ -69,44 +67,37 @@ public class AgentDAO {
             stmt.setString(2,agentObj.getlName());
             stmt.setString(3,agentObj.getPhone());
             stmt.setString(4, agentObj.getEmail());
-            stmt.setString(5,agentObj.getUsername());
-            stmt.setString(6,agentObj.getPassword());
-            stmt.setInt(7,agentObj.getId());
+            stmt.setInt(5,agentObj.getId());
             rowsUpdated = stmt.executeUpdate()>0;
         }
         disconnect();
         return rowsUpdated;
     }
     
-    public Agent readAgent(Agent agentObj) throws SQLException{
-        String sql = "SELECT firstName, lastName, phoneNo, email, userName, "
-                + "password, marketingagent FROM marketingagent WHERE id = ?";
+    public Agent readAgent(int id) throws SQLException{
+        String sql = "SELECT firstName, lastName, phoneNo, email FROM marketingagent WHERE id = ?";
         Agent agent = new Agent();
         connect();
         try (PreparedStatement stmt = jdbcConnection.prepareStatement(sql)) {
-            stmt.setInt(1,agentObj.getId());
+            stmt.setInt(1,id);
             try (ResultSet resultSet = stmt.executeQuery(sql)) {
                 agent.setId(resultSet.getInt(1));
                 agent.setfName(resultSet.getString(2));
                 agent.setlName(resultSet.getString(3));
                 agent.setPhone(resultSet.getString(4));
                 agent.setEmail(resultSet.getString(5));
-                agent.setUsername(resultSet.getString(6));
-                agent.setPassword(resultSet.getString(7));
             }
         }
         disconnect();
         return agent;
     }
     
-    public ArrayList readAgents(Agent agentObj) throws SQLException{
-        String sql = "SELECT id, firstName, lastName, phoneNo, email, userName, "
-                + "password, marketingagent FROM marketingagent";
+    public ArrayList readAgents() throws SQLException{
+        String sql = "SELECT id, firstName, lastName, phoneNo, email FROM marketingagent";
         ArrayList agents = new ArrayList();
         Agent agent = new Agent();
         connect();
         try (PreparedStatement stmt = jdbcConnection.prepareStatement(sql)) {
-            stmt.setInt(1,agentObj.getId());
             try (ResultSet resultSet = stmt.executeQuery(sql)) {
                 while(resultSet.next()){
                     agent.setId(resultSet.getInt(1));
@@ -114,8 +105,6 @@ public class AgentDAO {
                     agent.setlName(resultSet.getString(3));
                     agent.setPhone(resultSet.getString(4));
                     agent.setEmail(resultSet.getString(5));
-                    agent.setUsername(resultSet.getString(6));
-                    agent.setPassword(resultSet.getString(7));
                     agents.add(agent);
                 }
             }
