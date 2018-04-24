@@ -1,8 +1,10 @@
 
 package servlets;
 
-import DAO.LocationDAO;
-import DAO.OrdersDAO;
+import dbDAOs.AgentDAO;
+import dbDAOs.ClientsDAO;
+import dbDAOs.LocationDAO;
+import dbDAOs.OrdersDAO;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.File;
@@ -26,39 +28,68 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 import javax.swing.ImageIcon;
+import models.Agent;
+import models.Clients;
 import models.Location;
 import models.Order;
-
+import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.IOUtils;
 
 @MultipartConfig(maxFileSize = 999999999)
 public class OrderControllerServlet extends HttpServlet {
     
     OrdersDAO ordersDAO;
     LocationDAO locationsDAO;
+    AgentDAO agentsDAO;
+    ClientsDAO clientsDAO;
     List<String> listAllLocations;
+    List<Integer> listAllAgentIds;
+    List<Integer> listAllClientIds;
     
     @Override
     public void init() {
-        try {
-            String jdbcURL = getServletContext().getInitParameter("jdbcURL");
-            String jdbcUsername = getServletContext().getInitParameter("jdbcUsername");
-            String jdbcPassword = getServletContext().getInitParameter("jdbcPassword");
-            ordersDAO = new OrdersDAO(jdbcURL, jdbcUsername, jdbcPassword);
-            locationsDAO = new LocationDAO(jdbcURL, jdbcUsername, jdbcPassword);
-            listAllLocations = new ArrayList();
-            for(Location loc : locationsDAO.listAllLocations()){
-                listAllLocations.add(loc.getLocationName());
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(OrderControllerServlet.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        String jdbcURL = getServletContext().getInitParameter("jdbcURL");
+        String jdbcUsername = getServletContext().getInitParameter("jdbcUsername");
+        String jdbcPassword = getServletContext().getInitParameter("jdbcPassword");
+        ordersDAO = new OrdersDAO(jdbcURL, jdbcUsername, jdbcPassword);
+        locationsDAO = new LocationDAO(jdbcURL, jdbcUsername, jdbcPassword);
+        clientsDAO = new ClientsDAO(jdbcURL, jdbcUsername, jdbcPassword);
+        agentsDAO = new AgentDAO(jdbcURL, jdbcUsername, jdbcPassword);
+        listAllLocations = new ArrayList();
+//            for(Location loc : locationsDAO.listAllLocations()){
+//                listAllLocations.add(loc.getLocationName());
+//            }
     }
     
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-       String action = "";
+        try{
+            listAllLocations = new ArrayList();
+            for(Location loc : locationsDAO.listAllLocations()){
+                listAllLocations.add(loc.getLocationName());
+            }
+            
+            listAllAgentIds = new ArrayList();
+            for(Agent ag : agentsDAO.readAgents()){
+                listAllAgentIds.add(ag.getId());
+                System.out.println(ag.getId());
+            }
+            
+            
+            listAllClientIds = new ArrayList();
+            for(Clients cli : clientsDAO.listAllClients()){
+                listAllClientIds.add(cli.getId());
+                System.out.println(cli.getId());
+            }
+            
+        } catch(SQLException ex){
+            ex.printStackTrace();
+        }
+
+        
+        String action = "";
        
        if(request.getParameter("action")!=null)
        action = request.getParameter("action");
@@ -105,6 +136,8 @@ public class OrderControllerServlet extends HttpServlet {
     
     private void showNewForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException{
         request.setAttribute("listAllLocations", listAllLocations);
+        request.setAttribute("listAllAgentIds", listAllAgentIds);
+        request.setAttribute("listAllClientIds", listAllClientIds);
         RequestDispatcher dispatcher = request.getRequestDispatcher("AdminOrderForm.jsp");
         dispatcher.forward(request, response);
     }
@@ -114,6 +147,8 @@ public class OrderControllerServlet extends HttpServlet {
         Order order = ordersDAO.getOrder(id);
         order.setLocations(ordersDAO.getOrderLocation(id, locationsDAO));
         request.setAttribute("listAllLocations", listAllLocations);
+        request.setAttribute("listAllAgentIds", listAllAgentIds);
+        request.setAttribute("listAllClientIds", listAllClientIds);
         request.setAttribute("order", order);
         RequestDispatcher dispatcher = request.getRequestDispatcher("AdminOrderForm.jsp");
         dispatcher.forward(request, response);

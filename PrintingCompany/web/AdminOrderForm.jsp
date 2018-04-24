@@ -54,17 +54,24 @@ return true;
             <tr>
                 <th>Agent Id </th>
                 <td>
-                    <input type="number" name="agentId" size="45"
-                            value="<c:out value='${order.agentId}' />"
-                        />
+                    <select name="agentId">
+                        <c:forEach var = "agentId" items="${listAllAgentIds}">
+                            <option name="agentId" value="<c:out value="${agentId}" />" <c:if test="${order.agentId==agentId}">selected</c:if>><c:out value="${agentId}" /></option>
+                        </c:forEach>
+                    </select>
                 </td>
             </tr>
             <tr>
                 <th>Client Id </th>
                 <td>
-                    <input type="number" name="clientId" size="45"
+                    <select name="clientId">
+                        <c:forEach var = "clientId" items="${listAllClientIds}">
+                            <option name="clientId" value="<c:out value="${clientId}" />" <c:if test="${order.clientid==clientId}">selected</c:if>><c:out value="${clientId}" /></option>
+                        </c:forEach>
+                    </select>
+<!--                    <input type="number" name="clientId" size="45"
                             value="<c:out value='${order.clientid}' />"
-                    />
+                    />-->
                 </td>
             </tr>
             <tr>
@@ -113,7 +120,7 @@ return true;
                 <td>
                     <select name='flyerLayout'>
                         <option name="flyerLayout" value="Portrait"  <c:if test="${order.flyerLayout=='Portrait'}">selected</c:if>>Portrait</option>
-                        <option name="flyerLayflyerLayouout" value="Landscape"  <c:if test="${order.flyerLayout=='Landscape'}">selected</c:if>>Landscape</option>
+                        <option name="flyerLayout" value="Landscape"  <c:if test="${order.flyerLayout=='Landscape'}">selected</c:if>>Landscape</option>
                         <option name="flyerLayout" value="Both"  <c:if test="${order.flyerLayout=='Both'}">selected</c:if>>Both</option>
                     </select>
                 </td>

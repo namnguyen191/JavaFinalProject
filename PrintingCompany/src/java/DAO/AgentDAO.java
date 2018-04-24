@@ -1,12 +1,13 @@
-package DAO;
+package dbDAOs;
 
-import Models.Agent;
+import models.Agent;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -92,23 +93,33 @@ public class AgentDAO {
         return agent;
     }
     
-    public ArrayList readAgents() throws SQLException{
+    public List<Agent> readAgents() throws SQLException{
         String sql = "SELECT id, firstName, lastName, phoneNo, email FROM marketingagent";
-        ArrayList agents = new ArrayList();
-        Agent agent = new Agent();
+        List<Agent> agents = new ArrayList<>();
+        //Agent agent = new Agent();
         connect();
         try (PreparedStatement stmt = jdbcConnection.prepareStatement(sql)) {
             try (ResultSet resultSet = stmt.executeQuery(sql)) {
                 while(resultSet.next()){
-                    agent.setId(resultSet.getInt(1));
-                    agent.setfName(resultSet.getString(2));
-                    agent.setlName(resultSet.getString(3));
-                    agent.setPhone(resultSet.getString(4));
-                    agent.setEmail(resultSet.getString(5));
+//                    agent.setId(resultSet.getInt(1));
+//                    agent.setfName(resultSet.getString(2));
+//                    agent.setlName(resultSet.getString(3));
+//                    agent.setPhone(resultSet.getString(4));
+//                    agent.setEmail(resultSet.getString(5));
+                    int agentId = resultSet.getInt(1);
+                    String agentFName = resultSet.getString(2);
+                    String agentLName = resultSet.getString(3);
+                    String agentPhone = resultSet.getString(4);
+                    String agentEmail = resultSet.getString(5);
+                    Agent agent = new Agent(agentId, agentFName, agentLName, agentPhone, agentEmail);
                     agents.add(agent);
+                    for(Agent ag : agents){
+            System.out.println("The agent id is: " + ag.getId());
+        }
                 }
             }
         }
+        
         disconnect();
         return agents;
     }
