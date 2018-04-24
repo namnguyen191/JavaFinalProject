@@ -1,7 +1,7 @@
 
 package servlets;
 
-import dbDAOs.OrdersDAO;
+import DAO.OrdersDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Blob;

@@ -1,8 +1,8 @@
 
 package servlets;
 
-import dbDAOs.LocationDAO;
-import dbDAOs.OrdersDAO;
+import DAO.LocationDAO;
+import DAO.OrdersDAO;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.File;
@@ -28,8 +28,7 @@ import javax.servlet.http.Part;
 import javax.swing.ImageIcon;
 import models.Location;
 import models.Order;
-import org.apache.commons.io.FileUtils;
-import org.apache.commons.io.IOUtils;
+
 
 @MultipartConfig(maxFileSize = 999999999)
 public class OrderControllerServlet extends HttpServlet {
