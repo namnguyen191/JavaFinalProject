@@ -6,6 +6,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Printing Company</title>
+        <link rel="stylesheet" href="Style.css">
 </head>
 <body>
     <center>

@@ -25,6 +25,7 @@ return true;
 }
 
 </script>
+<link rel="stylesheet" href="Style.css">
 </head>
 <body>
     <center>

@@ -10,12 +10,13 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Update Agent</title>
+        <link rel="stylesheet" href="Style.css">
     </head>
     <body>
         <center>
             <h1>Update Agent</h1>
             <form action="saveUpdate" method="post" name="updateForm">
-                <table cellpadding="5" border="1">
+                <table>
                     <tr>
                         <th>Agent First Name</th>
                         <td>

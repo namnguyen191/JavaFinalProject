@@ -6,6 +6,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Admin Orders Management</title>
+        <link rel="stylesheet" href="Style.css">
     </head>
     <body>
         <center>
@@ -13,7 +14,7 @@
         <h2><a href="OrderControllerServlet?action=new">Add New Order</a></h2>
         </center>
     <div align="center">
-        <table border="1" cellpadding="5">
+        <table>
             <caption><h2>List of Orders</h2></caption>
             <tr>
                 <th>Id</th>

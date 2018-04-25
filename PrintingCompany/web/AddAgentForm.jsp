@@ -10,6 +10,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Add Agent</title>
+        <link rel="stylesheet" href="Style.css">
     </head>
     <body>
         <center>

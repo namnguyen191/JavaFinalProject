@@ -1,0 +1,20 @@
+/* Testing */
+body{
+    font-family: sans-serif;
+    background-color:#ffec9b
+}
+h1{
+    font-style: italic;
+}
+h2{
+    border-left: 4px solid black;
+    border-right:  4px solid black;
+    width: 450px
+}
+table{
+    border: 4px groove black;
+}
+th,td{
+    padding: 5px;
+    border: 1px solid black;
+}
