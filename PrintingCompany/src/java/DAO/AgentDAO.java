@@ -1,6 +1,6 @@
-package dbDAOs;
+package DAO;
 
-import models.Agent;
+import Models.Agent;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;

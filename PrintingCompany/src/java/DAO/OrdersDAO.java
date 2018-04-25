@@ -1,5 +1,5 @@
 
-package dbDAOs;
+package DAO;
 
 
 import java.io.InputStream;

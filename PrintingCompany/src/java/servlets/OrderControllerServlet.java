@@ -1,10 +1,10 @@
 
 package servlets;
 
-import dbDAOs.AgentDAO;
-import dbDAOs.ClientsDAO;
-import dbDAOs.LocationDAO;
-import dbDAOs.OrdersDAO;
+import DAO.AgentDAO;
+import DAO.ClientsDAO;
+import DAO.LocationDAO;
+import DAO.OrdersDAO;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.File;
@@ -28,7 +28,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 import javax.swing.ImageIcon;
-import models.Agent;
+import Models.Agent;
 import models.Clients;
 import models.Location;
 import models.Order;
